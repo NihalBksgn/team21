@@ -7,8 +7,8 @@ public class AracTalebi {
     //Kiralama ile ilgili variableler
     private String alinacakGun;
     private String alinacakSehir;
-    private LocalDateTime alisSaati;
-    private LocalDateTime teslimSaati;
+    private String alisSaati;
+    private String teslimSaati;
 
     //Arac ile ilgili bilgiler
     private String marka;
@@ -17,7 +17,7 @@ public class AracTalebi {
     private String vitesTipi;
     private double gunlukUcret;
 
-public AracTalebi (String alinacakGun,String alinacakSehir,LocalDateTime alisSaati,LocalDateTime teslimSaati){
+public AracTalebi (String alinacakGun,String alinacakSehir,String alisSaati,String teslimSaati){
     this.alinacakGun=alinacakGun;
     this.alinacakSehir=alinacakSehir;
     this.alisSaati=alisSaati;
@@ -48,19 +48,19 @@ public AracTalebi (String alinacakGun,String alinacakSehir,LocalDateTime alisSaa
         this.alinacakSehir = alinacakSehir;
     }
 
-    public LocalDateTime getAlisSaati() {
+    public String getAlisSaati() {
         return alisSaati;
     }
 
-    public void setAlisSaati(LocalDateTime alisSaati) {
+    public void setAlisSaati(String alisSaati) {
         this.alisSaati = alisSaati;
     }
 
-    public LocalDateTime getTeslimSaati() {
+    public String getTeslimSaati() {
         return teslimSaati;
     }
 
-    public void setTeslimSaati(LocalDateTime teslimSaati) {
+    public void setTeslimSaati(String teslimSaati) {
         this.teslimSaati = teslimSaati;
     }
 
