@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Task_02 {
+public class Task_02_manav {
  /* TASK :
          * Basit bir 5 ürünlü manav alisveris programi yaziniz.
          *

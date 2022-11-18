@@ -1,13 +1,12 @@
 package mentor_tasks;
 
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Task_01 {
+public class Task_01_gunlukKazanc {
     /* TASK :
          * Bir bakkalın 7 günlük tüm kazançlarını günlük olarak gösteren bir program yazınız.
          * Ayrıca bakkalın bu hafta ortalama kazandığı miktarı gösteren bir method yazınız.

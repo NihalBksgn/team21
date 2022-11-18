@@ -10,7 +10,30 @@ public class Task_05 {
         String input="Zeynep Hoca bir tane";
      */
     public static void main(String[] args) {
+        String str = "Zeynep Hoca bir tane";
+        karakterSayilariniBul(str);
+
+    }
+
+    public static void karakterSayilariniBul(String str) {
 
 
+        String[] arr = str.split("");
+        String bos = "";
+        for (String w : arr) {
+            int counter = 0;
+            for (String k : arr) {
+
+                if (w.equalsIgnoreCase(k)) {
+                    counter++;
+                }
+            }
+            if (!bos.contains(w)) {
+                bos += w + counter + " ";
+
+            }
+
+        }
+        System.out.println(bos);
     }
 }
