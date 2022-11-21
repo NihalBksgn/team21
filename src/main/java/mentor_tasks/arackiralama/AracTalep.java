@@ -1,7 +1,7 @@
 package mentor_tasks.arackiralama;
 
 public class AracTalep {
-    //kiralam ile ilgili bilgiler
+    //kiralama ile ilgili bilgiler
     private String alinacakSehir;
     private String alinacakGun;
     private String teslimGunu;
