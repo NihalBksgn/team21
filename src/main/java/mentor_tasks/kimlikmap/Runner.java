@@ -10,5 +10,11 @@ public class Runner {
         person.put("4865", new Persons("Idil", "Canakkale", "01725684"));
         person.put("1545", new Persons("Azra", "Bursa", "1758965"));
         selectOption();
+
+
+
+       String isim= person.get("Persons").tamIsim;
     }
+
+
 }
