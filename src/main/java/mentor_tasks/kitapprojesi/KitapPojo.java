@@ -18,7 +18,7 @@ public class KitapPojo {
 
     private double kitapFiyati;
 
-    static int sayac;
+    static int sayac=1000;
 
     public int getKitapNo() {
         return kitapNo;
