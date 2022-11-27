@@ -3,10 +3,10 @@ package mentor_tasks.kitapprojesi;
 
 import java.util.*;
 
-import static mentor_tasks.kimlikmap.KimlikYap.cikis;
 import static mentor_tasks.kitapprojesi.KitapPojo.*;
 
-public class Menu extends KitapPojo {
+
+public class Menu {
 
     public static final String kirmizi = "\u001B[31m";
 
@@ -14,10 +14,6 @@ public class Menu extends KitapPojo {
     public static final String sari = "\u001B[33m";
     public static final String mavi = "\u001B[34m";
     public static final String mor = "\u001B[35m";
-
-    public Menu(int kitapNo, String kitapAdi, String yazarAdi, double kitapFiyati) {
-        super(kitapNo, kitapAdi, yazarAdi, kitapFiyati);
-    }
 
 
     public static void kutuphaneyeGiris() {
@@ -39,6 +35,7 @@ public class Menu extends KitapPojo {
 
             System.out.println(mor + "Kullanici adinizi giriniz");
             String kullaniciIsmi = input.next();
+            input.nextLine();
 
             try {
 
@@ -86,7 +83,7 @@ public class Menu extends KitapPojo {
                     "5-Tum Kitaplari Listele\n" +
                     "6-Cikis");
             int secim = input.nextInt();
-            input.nextLine();
+            //  input.nextLine();
             switch (secim) {
                 case 1:
                     kitapEkle();
@@ -115,11 +112,14 @@ public class Menu extends KitapPojo {
                     menu();
             }
 
-        } catch (Exception e) {
-            System.out.println("Yanlis karakter girdiniz.Devam etmek icin lutfen sadece rakam giriniz.Cikmak isterseniz Q'ya basiniz");
+        } catch (InputMismatchException e) {
+            System.out.println(kirmizi + "Secimler icin 1-6 arasi rakam girmelisiniz,harf giremezsiniz.\n" +
+                    "Devam etmek icin D\nCikmak isterseniz Q'ya basiniz");
             input.nextLine();
-            String exit = input.next();
-            if (exit.equalsIgnoreCase("q")) {
+            String scm = input.next();
+            if (scm.equalsIgnoreCase("d")) {
+                menu();
+            } else if (scm.equalsIgnoreCase("q")) {
                 cikis();
             }
         }
@@ -131,25 +131,33 @@ public class Menu extends KitapPojo {
 
 
         System.out.println(mor + "Kaydetmek istediginiz kitabin adini giriniz..");
+        input.nextLine();
         String kitapIsmi = input.nextLine();
 
-        input.nextLine();
+
         System.out.println(mor + "Kaydetmek istediginiz kitabin Yazar adini giriniz..");
         String yazarIsmi = input.nextLine();
 
-        System.out.println(mor + "Kaydedilecek kitabin fiyatini giriniz...");
-        double fiyat = Double.parseDouble(input.nextLine());
+        try {
+            System.out.println(mor + "Kaydedilecek kitabin fiyatini giriniz...");
+            double fiyat = Math.abs(input.nextDouble());
 
-        KitapPojo kitap1 = new KitapPojo(sayac, kitapIsmi, yazarIsmi, fiyat);
+            KitapPojo kitap1 = new KitapPojo(sayac, kitapIsmi, yazarIsmi, fiyat);
+            kitaplik.add(kitap1);
 
-        kitaplik.add(kitap1);
+            System.out.println(sari + "Kitap Ekleme Isleminiz Basariyla Gerceklestirilmistir!");
+            System.out.println();
+            kitapListele();
 
-        System.out.println(sari + "Kitap Ekleme Isleminiz Basariyla Gerceklestirilmistir!");
-        System.out.println();
-        kitapListele();
+            menu();
 
-        sayac++;
-        menu();
+        } catch (InputMismatchException e) {
+            System.out.println(kirmizi + "Fiyat harf olarak girilemez!\n");
+
+            kitapEkle();
+        }
+
+
     }
     //NUMARA ILE KITAP GORUNTULEME
 
@@ -164,7 +172,7 @@ public class Menu extends KitapPojo {
                 System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
                         mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
                         mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
-                        mavi + "Kitap Fiyati: " + mor + w.getKitapFiyati());
+                        mavi + "Kitap Fiyati: " + mor + moneyFormat.format(w.getKitapFiyati()));
                 System.out.println(kirmizi + "Yukarida " + w.getKitapNo() + " numarali kitabi goruntulediniz");
                 System.out.println();
                 menu();
@@ -197,148 +205,171 @@ public class Menu extends KitapPojo {
             }
         }
     }
-            //  BILGI ILE KITAP GORUNTULEME
+    //  BILGI ILE KITAP GORUNTULEME
 
-            public static void bilgiIleKitap () {
-                Scanner input = new Scanner(System.in);
-                System.out.println(sari + "Kitap ismi ile arama yapmak istiyorsaniz 0 \n Yazar ismi ile arama yapmak istiyorsaniz 1 \n Kitap fiyatiyla arama yapmak istiyorsaniz 2 " +
-                        "\n menuye donmek icin 3'e tiklayiniz");
-                String secim = input.next();
-
-                switch (secim) {
-
-
-                    case "0":
-                        System.out.println(mor + "Lutfen kitap ismini giriniz..");
-                        String kitapIsmi = input.nextLine();
-                        input.nextLine();
-                        int counter = 0;
-                        for (KitapPojo w : kitaplik) {
-
-                            if (w.getKitapAdi().equalsIgnoreCase(kitapIsmi)) {
-                                System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
-                                        mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
-                                        mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
-                                        mavi + "Kitap Fiyati: " + mor + w.getKitapFiyati());
-                            } else {
-                                counter++;
-
-                            }
-                        }
-                        if (counter == kitaplik.size()) {
-                            System.out.println(kirmizi + "Aradiginiz kitap kutuphanemizde bulunmamaktadir");
-                            bilgiIleKitap();
-                        }
-
-                        break;
-
-                    case "1":
-                        System.out.println(mor + "Lütfen yazarin adini giriniz");
-                        String yazarAdi = input.nextLine();
-                        input.nextLine();
-                        int sayac = 0;
-                        for (KitapPojo w : kitaplik) {
-                            if (w.getYazarAdi().equalsIgnoreCase(yazarAdi)) {
-                                System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
-                                        mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
-                                        mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
-                                        mavi + "Kitap Fiyati: " + mor + w.getKitapFiyati());
-                            } else {
-                                sayac++;
-                            }
-                        }
-                        if (sayac == kitaplik.size()) {
-                            System.out.println(kirmizi + "Girdiginiz yazara ait kitap yoktur");
-                            bilgiIleKitap();
-                        }
-
-                        break;
-
-                    case "2":
-                        System.out.println(mor + "Almak istediginiz kitap fiyat araligini giriniz");
-                        double fiyat1 = input.nextDouble();
-                        double fiyat2 = input.nextDouble();
-
-                        double min = Math.min(fiyat1, fiyat2);
-                        double max = Math.max(fiyat1, fiyat2);
-                        int counter1 = 0;
-                        for (KitapPojo w : kitaplik) {
+    public static void bilgiIleKitap() {
+        Scanner input = new Scanner(System.in);
+        System.out.println(sari + "Kitap ismi ile arama yapmak istiyorsaniz 0 \n Yazar ismi ile arama yapmak istiyorsaniz 1 \n Kitap fiyatiyla arama yapmak istiyorsaniz 2 " +
+                "\n menuye donmek icin 3'e tiklayiniz");
+        int secim = input.nextInt();
+        input.nextLine();
+        switch (secim) {
 
 
-                            if (w.getKitapFiyati() < max && w.getKitapFiyati() > min) {
-
-                                System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
-                                        mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
-                                        mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
-                                        mavi + "Kitap Fiyati: " + mor + w.getKitapFiyati());
-                            } else {
-                                counter1++;
-                            }
-                        }
-                        if (counter1 == kitaplik.size()) {
-                            System.out.println(kirmizi + "Aradiginiz fiyat araliginda kitap yoktur");
-                            bilgiIleKitap();
-                        }
-
-                        break;
-                    case "3":
-                        menu();
-                        break;
-
-                    default:
-                        System.out.println(kirmizi + "Gecersiz bir giris yaptiniz.Lutfen tekrar deneyiniz");
-                        bilgiIleKitap();
-
-                }
-            }
-            //NUMARA ILE KITAP SIL
-
-            public static void numaraIleSil () {
-                System.out.println(mor + "Silmek istediginiz kitabin numarasini giriniz");
-                int number = input.nextInt();
+            case 0:
+                System.out.println(mor + "Lutfen kitap ismini giriniz..");
+                String kitapIsmi = input.nextLine();
                 int counter = 0;
                 for (KitapPojo w : kitaplik) {
-                    if (w.getKitapNo() == number) {
-                        kitaplik.remove(w);
-                        System.out.println(sari + "Silme isleminiz basariyla gerceklestirilmistir");
 
-                    } else {
-                        counter++;
+//                    if (w.getKitapAdi().equalsIgnoreCase(kitapIsmi)) {
+//                        System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
+//                                mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
+//                                mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
+//                                mavi + "Kitap Fiyati: " + mor + moneyFormat.format(w.getKitapFiyati()));
+//                    } else {
+//                        counter++;
+//
+//                    }
+//                }
+//                if (counter == kitaplik.size()) {
+//                    System.out.println(kirmizi + "Aradiginiz kitap kutuphanemizde bulunmamaktadir");
+//                    bilgiIleKitap();
+//                }
+                    if (w.getKitapAdi().equalsIgnoreCase(kitapIsmi)) {
+                        bilgiIleKitap.add(w);
+
                     }
                 }
-                if (counter == kitaplik.size()) {
-                    System.out.println(kirmizi + "Silmek istediginiz kitap numarasi listede bulunmamaktadir\n");
-                    menu();
+                System.out.println(bilgiIleKitap);
+
+                if (bilgiIleKitap.isEmpty()) {
+                    System.out.println(kirmizi + "Aradiginiz kitap kütüphanemizde yoktur");
                 }
-            }
-            //TUM KITAPLARI LISTELE
 
-            public static void kitapListele () {
-                System.out.println(kirmizi + "KITAP LISTESI");
+                bilgiIleKitap.clear();
+                bilgiIleKitap();
+                break;
 
+            case 1:
+                System.out.println(mor + "Lütfen yazarin adini giriniz");
+                String yazarAdi = input.nextLine();
+                input.nextLine();
+                int sayac = 0;
                 for (KitapPojo w : kitaplik) {
-                    System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
-                            mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
-                            mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
-                            mavi + "Kitap Fiyati: " + mor + w.getKitapFiyati());
-                    System.out.println();
+                    if (w.getYazarAdi().equalsIgnoreCase(yazarAdi)) {
+                        System.out.println(kirmizi + w.getYazarAdi() + "'nin Kitaplari: ");
+                        System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
+                                mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
+                                mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
+                                mavi + "Kitap Fiyati: " + mor + moneyFormat.format(w.getKitapFiyati()));
+                        bilgiIleKitap();
+                    } else {
+                        sayac++;
+                    }
                 }
-            }
+                if (sayac == kitaplik.size()) {
+                    System.out.println(kirmizi + "Girdiginiz yazara ait kitap yoktur");
+                    bilgiIleKitap();
+                }
 
-            //CIKIS METODU
-            public static void cikis () {
-                System.out.println(kirmizi + "Cikmak istediginize emin misiniz?\n" +
-                        "Evet ise E'ye,\n" +
-                        "Menuye donmek icin M'ye basiniz");
-                String secim = input.next();
-                if (secim.equalsIgnoreCase("E")) {
-                    System.out.println(sari + "Cikis isleminiz basariyla gerceklestirilmistir");
-                    kutuphaneyeGiris();
-                } else if (secim.equalsIgnoreCase("M")) {
-                    menu();
-                } else {
-                    System.out.println(kirmizi + "Lutfen gecerli bir secim yapiniz");
-                    cikis();
+                break;
+
+            case 2:
+                System.out.println(mor + "Almak istediginiz kitap fiyat araligini giriniz");
+                double fiyat1 = input.nextDouble();
+                double fiyat2 = input.nextDouble();
+
+                double min = Math.min(fiyat1, fiyat2);
+                double max = Math.max(fiyat1, fiyat2);
+                int counter1 = 0;
+
+                System.out.println(kirmizi + min + "-" + max + " € arasindaki kitaplar: ");
+                for (KitapPojo w : kitaplik) {
+
+
+                    if (w.getKitapFiyati() < max && w.getKitapFiyati() > min) {
+
+                        System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
+                                mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
+                                mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
+                                mavi + "Kitap Fiyati: " + mor + moneyFormat.format(w.getKitapFiyati()));
+                    } else {
+                        counter1++;
+                    }
                 }
+                if (counter1 == kitaplik.size()) {
+                    System.out.println(kirmizi + "Aradiginiz fiyat araliginda kitap yoktur");
+                    bilgiIleKitap();
+                }
+
+                break;
+            case 3:
+                menu();
+                break;
+
+            default:
+                System.out.println(kirmizi + "Gecersiz bir giris yaptiniz.Lutfen tekrar deneyiniz");
+                bilgiIleKitap();
+
+        }
+    }
+    //NUMARA ILE KITAP SIL
+
+    public static void numaraIleSil() {
+        System.out.println(mor + "Silmek istediginiz kitabin numarasini giriniz");
+        int number = input.nextInt();
+        int counter2 = 0;
+        for (KitapPojo w : kitaplik) {
+            if (w.getKitapNo() == number) {
+                System.out.println(kirmizi + w.getKitapAdi() + " isimli kitabi silmek istediginize emin misiniz?\n" +
+                        "E/H");
+                String scm = input.next();
+                if (scm.equalsIgnoreCase("h")) {
+                    numaraIleSil();
+                } else if (scm.equalsIgnoreCase("e")) {
+                    kitaplik.remove(w);
+                    System.out.println(sari + "Silme isleminiz basariyla gerceklestirilmistir");
+                }
+
+            } else {
+                counter2++;
             }
         }
+        if (counter2 == kitaplik.size()) {
+            System.out.println(kirmizi + "Silmek istediginiz kitap numarasi listede bulunmamaktadir\n");
+            menu();
+        }
+    }
+    //TUM KITAPLARI LISTELE
+
+    public static void kitapListele() {
+        System.out.println(kirmizi + "KITAP LISTESI");
+
+        for (KitapPojo w : kitaplik) {
+            System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
+                    mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
+                    mavi + "Yazar Adi: " + mor + w.getYazarAdi() + "\n" +
+                    mavi + "Kitap Fiyati: " + mor + w.getKitapFiyati());
+            System.out.println();
+        }
+    }
+
+    //CIKIS METODU
+    public static void cikis() {
+        System.out.println(kirmizi + "Cikmak istediginize emin misiniz?\n" +
+                "Evet ise E'ye,\n" +
+                "Menuye donmek icin M'ye basiniz");
+        String secim = input.next();
+        if (secim.equalsIgnoreCase("E")) {
+            System.out.println(sari + "Cikis isleminiz basariyla gerceklestirilmistir");
+            kutuphaneyeGiris();
+        } else if (secim.equalsIgnoreCase("M")) {
+            menu();
+        } else {
+            System.out.println(kirmizi + "Lutfen gecerli bir secim yapiniz");
+            cikis();
+        }
+    }
+
+}

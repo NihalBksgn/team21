@@ -1,32 +1,32 @@
 package mentor_tasks.kitapprojesi;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static mentor_tasks.kitapprojesi.Menu.menu;
+
 
 
 public class KitapPojo {
 
     static ArrayList<KitapPojo> kitaplik = new ArrayList<>();
-    static List<KitapPojo> kitapListem = new ArrayList<>();
-
+    static List<KitapPojo> bilgiIleKitap = new ArrayList<>();
     static Scanner input = new Scanner(System.in);
 
-    private static String kullanici;
-    private static int sifre;
+    static DecimalFormat moneyFormat = new DecimalFormat("###,##0.00'€'");
+    private String kullanici;
+    private int sifre;
     private int kitapNo;
     private String kitapAdi;
     private String yazarAdi;
 
     private double kitapFiyati;
 
-    static int sayac=1000;
+    static int sayac = 1000;
 
 
-
-    public static String getKullanici() {
+    public String getKullanici() {
         return kullanici;
     }
 
@@ -34,7 +34,7 @@ public class KitapPojo {
         this.kullanici = kullanici;
     }
 
-    public static int getSifre() {
+    public int getSifre() {
         return sifre;
     }
 
@@ -80,6 +80,7 @@ public class KitapPojo {
         this.kitapAdi = kitapAdi;
         this.yazarAdi = yazarAdi;
         this.kitapFiyati = kitapFiyati;
+        sayac++;
     }
 
     @Override
