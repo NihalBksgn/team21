@@ -2,16 +2,26 @@ package mentor_tasks.kitapprojesi;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 
-
-
 public class KitapPojo {
+
+    public static final String kirmizi = "\u001B[31m";
+
+    public static final String yesil = "\u001B[32m";
+
+    public static final String sari = "\u001B[33m";
+
+    public static final String mavi = "\u001B[34m";
+    public static final String mor = "\u001B[35m";
 
     static ArrayList<KitapPojo> kitaplik = new ArrayList<>();
     static List<KitapPojo> bilgiIleKitap = new ArrayList<>();
+    static HashMap<String, Integer> kullanicilar = new HashMap<>();
+
     static Scanner input = new Scanner(System.in);
 
     static DecimalFormat moneyFormat = new DecimalFormat("###,##0.00'€'");
