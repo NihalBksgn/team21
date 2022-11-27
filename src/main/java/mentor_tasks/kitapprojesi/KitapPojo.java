@@ -11,7 +11,11 @@ public class KitapPojo {
 
     static ArrayList<KitapPojo> kitaplik = new ArrayList<>();
     static List<KitapPojo> kitapListem = new ArrayList<>();
+
     static Scanner input = new Scanner(System.in);
+
+    private static String kullanici;
+    private static int sifre;
     private int kitapNo;
     private String kitapAdi;
     private String yazarAdi;
@@ -19,6 +23,24 @@ public class KitapPojo {
     private double kitapFiyati;
 
     static int sayac=1000;
+
+
+
+    public static String getKullanici() {
+        return kullanici;
+    }
+
+    public void setKullanici(String kullanici) {
+        this.kullanici = kullanici;
+    }
+
+    public static int getSifre() {
+        return sifre;
+    }
+
+    public void setSifre(int sifre) {
+        this.sifre = sifre;
+    }
 
     public int getKitapNo() {
         return kitapNo;
@@ -69,8 +91,6 @@ public class KitapPojo {
                 ", kitapFiyati=" + kitapFiyati +
                 '}';
     }
-
-
 
 
 }
