@@ -10,7 +10,7 @@ public class Menu {
 
     public static void kutuphaneyeGiris() {
 
-        System.out.println(kirmizi + "       TEAM 21 KUTUPHANE'YE HOSGELDINIZ      ");
+        System.out.println(kirmizi + "       TEAM 21 KITABEVI'NE HOSGELDINIZ      ");
 
 
         boolean flag = true;
@@ -36,8 +36,10 @@ public class Menu {
                 sifre = input.nextInt();
 
             } catch (Exception e) {
-                System.out.println(kirmizi + "Hatali giris yaptiniz! Sifreniz sadece rakamlardan olusmalidir");
-
+                System.out.println(kirmizi + "Hatali giris yaptiniz! Sifreniz sadece rakamlardan olusmalidir\n" +
+                        "Devam etmek icin herhangi bir tusa,\n" +
+                        "Cikmak icin q'ya basiniz");
+                input.nextLine();
                 String exit = input.next();
                 if (exit.equalsIgnoreCase("q")) {
                     flag = false;
@@ -54,7 +56,6 @@ public class Menu {
             }
             if (counter == kullanicilar.size()) {
                 System.out.println(kirmizi + "Yanlis Kullanici Adi veya Sifre Girdiniz");
-
             }
 //            for (Map.Entry<String, Integer> w : kullanicilar.entrySet()) {
 //
@@ -156,7 +157,7 @@ public class Menu {
         KitapPojo kitap1 = new KitapPojo(sayac, kitapIsmi, yazarIsmi, fiyat);
         kitaplik.add(kitap1);
 
-        System.out.println(sari + "Kitap Ekleme Isleminiz Basariyla Gerceklestirilmistir!");
+        System.out.println(yesil + "Kitap Ekleme Isleminiz Basariyla Gerceklestirilmistir!");
         System.out.println();
         kitapListele();
 
@@ -171,7 +172,7 @@ public class Menu {
             System.out.println(mor + "Goruntulemek istediginiz kitabin numarasini giriniz");
             kitapNumarasi = input.nextInt();
         } catch (Exception e) {
-            String str=input.next();
+            String str = input.next();
             System.out.println(kirmizi + "Kitap numarasi harf olamaz! Menuye yonlendiriliyorsunuz...");
 
             menu();
@@ -228,7 +229,7 @@ public class Menu {
 
                 System.out.println(kirmizi + "Secimleriniz harf iceremez.Lutfen gecerli bir rakam giriniz");
                 menu();
-                input.nextLine();
+               // input.nextLine();
             }
         }
         switch (secim) {
@@ -298,18 +299,18 @@ public class Menu {
             case 2:
                 System.out.println(mor + "Almak istediginiz kitap fiyat araligini giriniz");
 
-                double fiyat1=0;
-                double fiyat2=0;
+                double fiyat1 = 0;
+                double fiyat2 = 0;
 
-                    try {
-                        fiyat1 = input.nextDouble();
-                        fiyat2 = input.nextDouble();
+                try {
+                    fiyat1 = input.nextDouble();
+                    fiyat2 = input.nextDouble();
 
-                    }catch (Exception e){
-                        String str=input.next();
-                        System.out.println(kirmizi+"Fiyatlar rakam olarak girilmelidir!!! Tekrar deneyiniz...");
-                        bilgiIleKitap();
-                    }
+                } catch (Exception e) {
+                    String str = input.next();
+                    System.out.println(kirmizi + "Fiyatlar rakam olarak girilmelidir!!! Tekrar deneyiniz...");
+                    bilgiIleKitap();
+                }
 
                 double min = Math.min(fiyat1, fiyat2);
                 double max = Math.max(fiyat1, fiyat2);
@@ -319,7 +320,7 @@ public class Menu {
                 for (KitapPojo w : kitaplik) {
 
 
-                    if (w.getKitapFiyati() < max && w.getKitapFiyati() > min) {
+                    if (w.getKitapFiyati() < max && w.getKitapFiyati() >= min) {
 
                         System.out.println(mavi + "Kitap No: " + mor + w.getKitapNo() + "\n" +
                                 mavi + "Kitap Adi: " + mor + w.getKitapAdi() + "\n" +
@@ -386,45 +387,47 @@ public class Menu {
 //    }
 
         while (true) {
-            int number=0;
+            int number = 0;
             System.out.println("Silmek istediginiz kitabin numarasini giriniz");
 
             try {
                 number = input.nextInt();
             } catch (Exception e) {
-                System.out.println("Kitap numrası harf olamaz! lutfen rakam giriniz");
-            }
-                Iterator<KitapPojo> itr = kitaplik.iterator();
-                boolean silindi = false;
-                while (itr.hasNext()) {
-                    KitapPojo k = itr.next();
-                    if (k.getKitapNo() == number) {
-                        System.out.println(kirmizi + k.getKitapAdi() + " isimli kitabi silmek istediginize emin misiniz?\n" +
-                                "E/H");
-                        String scm = input.next();
-                        if (scm.equalsIgnoreCase("h")) {
-                            menu();
-                        } else if (scm.equalsIgnoreCase("e")) {
-                            itr.remove();
-                            silindi = true;
-                            System.out.println("Silme isleminiz basariyla gerceklestirilmistir");
-                            kitapListele();
-                        }
-                    }
-                }
-                if (silindi) {
-                    break;
-                } else {
-                    System.out.println("Silmek istediginiz kitap numarasi listede bulunmamaktadir\n" +
-                            "devam etmek icin herhangi bir tusa,Cikmak icin q ya basiniz");
-                    String scm = input.next();
-                    if (scm.equalsIgnoreCase("q")) {
-                        cikis();
-                    } else {
-                        menu();
-                    }
+                System.out.println(kirmizi+"Kitap numrası harf olamaz! lutfen rakam giriniz");
 
+            }
+            Iterator<KitapPojo> itr = kitaplik.iterator();
+            boolean silindi = false;
+            while (itr.hasNext()) {
+                KitapPojo k = itr.next();
+                if (k.getKitapNo() == number) {
+                    System.out.println(kirmizi + k.getKitapAdi() + " isimli kitabi silmek istediginize emin misiniz?\n" +
+                            "E/H");
+                    String scm = input.next();
+                    if (scm.equalsIgnoreCase("h")) {
+                        menu();
+                    } else if (scm.equalsIgnoreCase("e")) {
+                        itr.remove();
+                        silindi = true;
+                        System.out.println(yesil+ "Silme isleminiz basariyla gerceklestirilmistir");
+                        kitapListele();
+                    }
                 }
+            }
+            if (silindi) {
+                break;
+            } else {
+                System.out.println(kirmizi+ "Silmek istediginiz kitap numarasi listede bulunmamaktadir\n" +
+                        "devam etmek icin herhangi bir tusa,Cikmak icin q ya basiniz");
+                input.nextLine();
+                String scm = input.next();
+                if (scm.equalsIgnoreCase("q")) {
+                    cikis();
+                } else {
+                    menu();
+                }
+
+            }
 
 
         }
@@ -453,7 +456,7 @@ public class Menu {
                 "Menuye donmek icin M'ye basiniz");
         String secim = input.next();
         if (secim.equalsIgnoreCase("E")) {
-            System.out.println(sari + "Cikis isleminiz basariyla gerceklestirilmistir");
+            System.out.println(yesil + "Cikis isleminiz basariyla gerceklestirilmistir");
             kutuphaneyeGiris();
         } else if (secim.equalsIgnoreCase("M")) {
             menu();
